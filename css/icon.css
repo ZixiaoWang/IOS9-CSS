@@ -1,0 +1,21 @@
+a.icon::before{
+    content:'';
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/*
+a.left-anchor::before{
+    background-position: left;
+}
+a.right-anchor::bofore{
+    background-position: right;
+}
+*/
+a.icon.icon-create::before{ background-image:url(../fonts/icons/create.png);}
+a.icon.icon-back::before{ background-image:url(../fonts/icons/back.png); width: 20px;}
+a.icon.icon-camera::before{ background-image:url(../fonts/icons/camera.png);}
+a.icon.icon-siri::before{ background-image:url(../fonts/icons/siri.png);}

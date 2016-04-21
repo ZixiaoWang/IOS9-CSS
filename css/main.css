@@ -1,0 +1,96 @@
+@font-face{
+    font-family: 'SSFnormal';
+    src:url(../fonts/SSFnormal.ttf);
+}
+
+html, body{
+    margin: 0px;
+    font-family: SSFnormal;
+    font-weight: 400;
+}
+input{ font-family: SSFnormal !important; font-weight: 600;}
+a, a:visited{ color: rgb(13,122,255); text-decoration: none; display: inline-flex; font-weight: 600; }
+
+/* Block */
+.block{
+    width: 100%; 
+    height: 44px;
+    padding: 7px; 
+    line-height: 30px;
+    box-sizing: border-box;
+    background-color: rgb(249,249,249);
+    position: relative;
+}
+.block.input-block{
+    background-color: rgb(201,201,206);
+    border-bottom: 1px solid #EEE;
+    line-height: 0px;
+}
+.block.input-block:focus{
+    background-color: white;
+}
+.block>input.search{
+    width: 100%;
+    border-radius: 3px;
+    border: none;
+    padding: 7px;
+    line-height: 14px;
+    box-sizing: border-box;
+    text-align: center; 
+}
+.block>input.search:focus{
+    outline: none;
+    text-align: left;
+}
+
+.block>a.left-anchor{
+    float: left;
+    margin-right: 7px;
+}
+.block>a.right-anchor{
+    float: right;
+    margin-left: 7px;
+}
+.block>.block-title{
+    width: 100%;
+    height: 44px;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content:center;
+    flex-direction: column;
+}
+.block-title>h1{
+    margin: 0px;
+    font-size: 1em;
+    line-height: 44px;
+}
+.block-title>h2, .block-title>p{
+    margin: 0px;
+    font-size: .7em;
+    line-height: 14px;
+    
+}
+.block-title>p{
+    color: rgb(183,183,186);
+}
+
+.block.input-group{
+    display: flex;
+    border-top: 1px solid #EEE;
+}
+.block.input-group>input{
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #EEE;
+    padding: 7px;
+}
+.block.input-group>input:focus{ outline: none;}
+
+
+input::after{
+    content:'+';
+    display: block;
+}
