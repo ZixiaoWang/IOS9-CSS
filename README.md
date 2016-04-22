@@ -11,7 +11,6 @@ Using CSS and JavaScript to simulate the layout style of IOS 9.
   待定..
   
 #### Screen Capture / 截屏  
-![](./local/bar.png)  
-![](./local/ctrl.png)  
-![](./local/seg.png)  
-![](./local/tab.png)
+![](./local/bar.png)&nbsp;![](./local/tab.png)
+<hr>
+![](./local/seg.png)&nbsp;![](./local/ctrl.png)  
