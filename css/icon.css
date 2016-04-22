@@ -7,6 +7,26 @@ a.icon::before{
     background-position: center;
     background-repeat: no-repeat;
 }
+a.tab{
+    flex-direction: column;
+    font-size: 10px;
+    text-align: center;
+    align-items:center;
+    line-height: 18px;
+    color: rgb(153,153,153) !important;
+}
+a.tab.active{
+    color: rgb(13,122,255) !important;
+}
+a.tab::before{
+    content:'';
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /*
 a.left-anchor::before{
     background-position: left;
@@ -19,3 +39,15 @@ a.icon.icon-create::before{ background-image:url(../fonts/icons/create.png);}
 a.icon.icon-back::before{ background-image:url(../fonts/icons/back.png); width: 20px;}
 a.icon.icon-camera::before{ background-image:url(../fonts/icons/camera.png);}
 a.icon.icon-siri::before{ background-image:url(../fonts/icons/siri.png);}
+
+a.tab.tab-file::before{background-image:url("./tabs/File.png");}
+a.tab.tab-bookmark::before{background-image:url("./tabs/Bookmark.png");}
+a.tab.tab-box::before{background-image:url("./tabs/Box.png");}
+a.tab.tab-briefcase::before{background-image:url("./tabs/Briefcase.png");}
+a.tab.tab-folder::before{background-image:url("./tabs/Folder.png");}
+
+a.tab.tab-file.active::before{background-image:url('./activeTabs/FileFilled.png');}
+a.tab.tab-bookmark.active::before{background-image:url("./activeTabs/BookmarkFilled.png");}
+a.tab.tab-box.active::before{background-image:url("./activeTabs/BoxFilled.png");}
+a.tab.tab-briefcase.active::before{background-image:url("./activeTabs/BriefcaseFilled.png");}
+a.tab.tab-folder.active::before{background-image:url("./activeTabs/FolderFilled.png");}

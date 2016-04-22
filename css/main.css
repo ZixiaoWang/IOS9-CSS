@@ -7,9 +7,12 @@ html, body{
     margin: 0px;
     font-family: SSFnormal;
     font-weight: 400;
+    background-color: rgb(233,234,239);
+    
+    height: 400vh;
 }
 input{ font-family: SSFnormal !important; font-weight: 600;}
-a, a:visited{ color: rgb(13,122,255); text-decoration: none; display: inline-flex; font-weight: 600; }
+a, a:visited{ color: rgb(13,122,255); text-decoration: none; display: inline-flex; font-weight: 400; }
 
 /* Block */
 .block{
@@ -31,7 +34,7 @@ a, a:visited{ color: rgb(13,122,255); text-decoration: none; display: inline-fle
 }
 .block>input.search{
     width: 100%;
-    border-radius: 3px;
+    border-radius: 4px;
     border: none;
     padding: 7px;
     line-height: 14px;
@@ -83,14 +86,92 @@ a, a:visited{ color: rgb(13,122,255); text-decoration: none; display: inline-fle
 }
 .block.input-group>input{
     width: 100%;
-    border-radius: 3px;
+    border-radius: 4px;
     border: 1px solid #EEE;
     padding: 7px;
 }
 .block.input-group>input:focus{ outline: none;}
+.block.input-group>a{
+    padding: 0px 7px;
+}
 
+/** Segmented Controllers */
+.seg-ctrl-groups{
+    display: flex;
+    margin: 0px 16px;
+    border: 1.5px solid rgb(13,122,255);
+    border-radius: 4px;
+}
+.long-groups{
+    margin: 0px 8px;
+}
+a.seg-ctrl{
+    flex: 1;
+    font-size: 14px;
+    border-left: 1.5px solid rgb(13,122,255);
+    display: inline-block;
+    text-align: center;
+    line-height: 24px;
+}
+.seg-ctrl-groups>a.seg-ctrl:first-of-type{
+    border-left: none;
+}
+a.seg-ctrl.active{
+    background-color: rgb(13,122,255);
+    color: white;
+}
 
-input::after{
-    content:'+';
-    display: block;
+/** Tabs blocks*/
+.block.tab-block{
+    border-top: 1px solid #AAA;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 0px;
+}
+
+/** Controls */
+.block>input.switch{
+    display: none;
+}
+input[type="checkbox"].switch+label{
+    width: 51px;
+    height: 32px;
+    display: inline-flex;
+    background-color: white;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    align-items:center;
+    border: 1px solid #EEE;
+    position: relative;
+    
+    -webkit-transition: background-color .3s ease;
+    -moz-transition: lefbackground-color .3s ease;
+    transition: background-color .3s ease;
+}
+input[type="checkbox"].switch+label::before{
+    content: '';
+    width: 26px;
+    height: 26px;
+    left: 2px;
+    background-color: white;
+    display: inline-block;
+    border-radius: 50%;
+    box-shadow: 0px 0px 6px #CCC;
+    position: absolute;
+    top: 2px;
+    
+    -webkit-transition: left .3s ease;
+    -moz-transition: left .3s ease;
+    transition: left .3s ease;
+}
+input[type="checkbox"]:checked.switch+label{
+    background-color: rgb(77,215,101);
+}
+input[type="checkbox"]:checked.switch+label::before{
+    left: 21px;
+}
+.block>.switch+label{
+    float: right;
 }
