@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <style>
+            body{margin: 0px; background-color: rgb(245,245,245);}
+            .left{ width: 39%; float: left; border-right: 1px solid #BBB; box-sizing: border-box; height: 100vh;} 
+            .right { width: 61%; float: left; height: 100vh;}
+            
+            .bar-group{width: 100%; margin-bottom: 35px; background-color: white; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;}
+            .bar{width: 100%; min-height: 44px; display: flex; }
+            .bar-icon{                
+                width: 28px;
+                padding: 0px 15px;
+                display: flex;
+                align-items: center;
+            }
+            .bar-content{
+                display: inline-flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 100%;
+                border-bottom: 1px solid #CCC;
+            }
+            .bar-status{
+                width: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 0px 15px;
+                border-bottom: 1px solid #CCC;
+            }
+            .bar-group>.bar:last-of-type>.bar-content,
+            .bar-group>.bar:last-of-type>.bar-status{ border-bottom: none; }
+            
+            input.switch{
+                display: none;
+            }
+            input[type="checkbox"].switch+label{
+                width: 51px;
+                height: 32px;
+                display: inline-flex;
+                background-color: white;
+                padding: 2px;
+                box-sizing: border-box;
+                border-radius: 16px;
+                align-items:center;
+                border: 1px solid #EEE;
+                position: relative;
+                
+                -webkit-transition: background-color .3s ease;
+                -moz-transition: lefbackground-color .3s ease;
+                transition: background-color .3s ease;
+            }
+            input[type="checkbox"].switch+label::before{
+                content: '';
+                width: 26px;
+                height: 26px;
+                left: 2px;
+                background-color: white;
+                display: inline-block;
+                border-radius: 50%;
+                box-shadow: 0px 0px 6px #CCC;
+                position: absolute;
+                top: 2px;
+                
+                -webkit-transition: left .3s ease;
+                -moz-transition: left .3s ease;
+                transition: left .3s ease;
+            }
+            input[type="checkbox"]:checked.switch+label{
+                background-color: rgb(77,215,101);
+            }
+            input[type="checkbox"]:checked.switch+label::before{
+                left: 21px;
+            }
+        </style>
+    </head>
+    <body ng-app="app" ng-controller="myApp">
+        
+        <section class="left">
+            <bar-group>
+                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
+                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
+                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
+                <switch-bar icon="'http://placehold.it/28x28'" id="'01'" ng-model="wifi">Wi-Fi</switch-bar>
+                <bar icon="'http://placehold.it/28x28'" status="'On'">Bluetooth</bar>
+            </bar-group>
+            <bar-group>
+                <bar icon="'http://placehold.it/28x28'" status="">Music</bar>    
+            </bar-group>
+        </section>
+        
+        <section class="right">
+            
+        </section>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script>
+        angular.module('app', [])
+        .controller('myApp', function($scope){
+            
+        })
+        .directive('barGroup', function(){
+            return {
+                restrict:'AE',
+                template:'<div class="bar-group" ng-transclude></div>',
+                transclude:true,
+                replace:true
+            }
+        })
+        .directive('bar', function(){
+            return {
+                restrict:'AE',
+                template:  '<div class="bar">\
+                                <div class="bar-icon" ng-if="icon">\
+                                    <img ng-src="{{icon}}" alt="Icon">\
+                                </div>\
+                                <div class="bar-content" ng-transclude></div>\
+                                <div class="bar-status" ng-if="status">{{status}}</div>\
+                            </div><!-- bar -->',
+                scope:{
+                    icon:'=',
+                    status:'='
+                },
+                transclude:true,
+                replace:true
+            }
+        })
+        .directive('switchBar', function(){
+            return {
+                restrict:'AE',
+                template:  '<div class="bar">\
+                                <div class="bar-icon" ng-if="icon">\
+                                    <img ng-src="{{icon}}" alt="Icon">\
+                                </div>\
+                                <div class="bar-content" ng-transclude></div>\
+                                <div class="bar-status" ng-if="id">\
+                                    <input type="checkbox" class="switch" id="{{id}}" ng-model="$parent.ngModel">\
+                                    <label for="{{id}}">&nbsp;</label>\
+                                </div>\
+                            </div><!-- bar -->',
+                scope:{
+                    icon:'=',
+                    id:'=',
+                    ngModel:'='
+                },
+                transclude:true,
+                replace:true
+            }
+        })
+    </script>
+</html>
