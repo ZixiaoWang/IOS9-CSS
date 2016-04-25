@@ -13,7 +13,21 @@
             .bar-group{width: 100%; margin-bottom: 35px; background-color: white; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;}
             .bar-table-group{width:initial; margin: 0px 20px 35px 20px; border: 1px solid #CCC; border-radius: 5px;}
             .bar-table-group>.bar:first-of-type{border-radius: 10px 10px 0px 0px 10px;}
+            .pre-bar{margin: 0px 20px 0px 35px; line-height: 34px; color: #666;}
+            .after-bar{margin: -35px 20px 35px 35px; line-height: 34px; color: #666;}
             .bar{width: 100%; min-height: 43px; display: flex; }
+            .bar>.bar-status>a{padding-left: 15px;}
+            .search-bar{ padding: 8px; background-color: #CAC9CF; box-sizing: border-box; margin-bottom: 35px;}
+            .searchbox{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .searchbox>.search, .searchbox>.close{display: flex; align-items: center; padding: 0px 8px; background-color: white; display: none; color: #8E8D95; }
+            .searchbox>.search{ border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+            .searchbox>.close{ border-top-right-radius: 4px; border-bottom-right-radius: 4px;}
+            .searchbox>input{ border: none; width:100%; border-radius: 4px; padding: 4px; text-align: center; }
+            .searchbox>input:focus{ outline: none; text-align: left;}
             .bar-icon{                
                 width: 29px;
                 padding: 0px 15px;
@@ -86,14 +100,7 @@
     <body ng-app="app" ng-controller="myApp">
         
         <section class="left">
-            <div class="bar search-bar">
-                <div class="search">
-                    <div></div>
-                    <input type="text">
-                    <div></div>
-                </div>
-            </div>
-            <bar-group></bar-group>
+            <search-bar ng-model="text"></search-bar>
             <bar-group>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
@@ -110,13 +117,15 @@
         
         <section class="right">
             <bar-group></bar-group>
+            <div class="pre-bar">Lorem ipsum dolor sit.</div>
             <bar-table-group>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">This is the Bar</text-bar>   
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
                 <switch-bar icon="'./icons/bluetooth.png'" id="'03'" ng-model="wifi">Wi-Fi</switch-bar>
-                <link-bar icon="'./icons/bluetooth.png'" href="'https://www.google.com'">Google</link-bar>
+                <link-bar icon="'./icons/bluetooth.png'" href="'https://www.google.com'" status="'Go'">Google</link-bar>
                 <link-bar icon="'./icons/bluetooth.png'" href="'#'">Local</link-bar>
             </bar-table-group>
+            <div class="after-bar">Lorem ipsum dolor sit amet.</div>
         </section>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -190,17 +199,54 @@
                                 </div>\
                                 <div class="bar-content" ng-transclude></div>\
                                 <div class="bar-status" ng-if="href">\
-                                    <a class="arrow-right"></a>\
+                                    {{status}}<a class="arrow-right"></a>\
                                 </div>\
                             </div><!-- bar -->',
                 scope:{
                     icon:'=',
-                    href:'='
+                    href:'=',
+                    status:'='
                 },
                 link:function(scope, elem, attr){
                   elem.bind('click', function(){
                       location.href = scope.href;
                   })  
+                },
+                transclude:true,
+                replace:true
+            }
+        })
+        .directive('searchBar', function(){
+            return {
+                restrict:'AE',
+                template:  '<div class="bar search-bar">\
+                                <div class="searchbox">\
+                                    <div class="search"></div>\
+                                    <input type="text" placeholder="🔍 Search" ng-model="ngModel">\
+                                    <div class="close"></div>\
+                                </div>\
+                            </div>',
+                scope:{
+                    ngModel:'='
+                },
+                link:function(scope, elem, attr){
+                    elem[0].querySelector('input').addEventListener('focus', function(){
+                        this.placeholder = '';
+                        this.style.borderRadius = '0px';
+                        this.previousElementSibling.style.display = 'flex';
+                        this.nextElementSibling.style.display = 'flex';
+                    });
+                    elem[0].addEventListener('blur', function(){
+                        if(this.querySelector('input').value==null){ return;}
+                        console.log('out');
+                        this.querySelector('input').placeholder = '🔍 Search';
+                        this.querySelector('input').style.borderRadius = '4px';
+                        this.querySelector('.search').style.display = 'none';
+                        this.querySelector('.close').style.display = 'none';
+                    });
+                    elem[0].querySelector('.close').addEventListener('click', function(){
+                        this.previousElementSibling.value = '';
+                    })
                 },
                 transclude:true,
                 replace:true
