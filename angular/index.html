@@ -3,19 +3,24 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link rel="stylesheet" href="./css/ios.css">
         <style>
-            body{margin: 0px; background-color: rgb(245,245,245);}
+            @font-face{ font-family: 'SSF'; src:url("./fonts/SSFthin.ttf"); }
+            body{margin: 0px; background-color: rgb(245,245,245); font-family: SSF; font-weight: 700;}
             .left{ width: 39%; float: left; border-right: 1px solid #BBB; box-sizing: border-box; height: 100vh;} 
             .right { width: 61%; float: left; height: 100vh;}
             
             .bar-group{width: 100%; margin-bottom: 35px; background-color: white; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;}
-            .bar{width: 100%; min-height: 44px; display: flex; }
+            .bar-table-group{width:initial; margin: 0px 20px 35px 20px; border: 1px solid #CCC; border-radius: 5px;}
+            .bar-table-group>.bar:first-of-type{border-radius: 10px 10px 0px 0px 10px;}
+            .bar{width: 100%; min-height: 43px; display: flex; }
             .bar-icon{                
-                width: 28px;
+                width: 29px;
                 padding: 0px 15px;
                 display: flex;
                 align-items: center;
             }
+            .bar-icon>img{width: 29px; height: 29px; display: block;}
             .bar-content{
                 display: inline-flex;
                 align-items: center;
@@ -30,6 +35,7 @@
                 justify-content: flex-end;
                 padding: 0px 15px;
                 border-bottom: 1px solid #CCC;
+                color:#CCC;
             }
             .bar-group>.bar:last-of-type>.bar-content,
             .bar-group>.bar:last-of-type>.bar-status{ border-bottom: none; }
@@ -80,20 +86,37 @@
     <body ng-app="app" ng-controller="myApp">
         
         <section class="left">
+            <div class="bar search-bar">
+                <div class="search">
+                    <div></div>
+                    <input type="text">
+                    <div></div>
+                </div>
+            </div>
+            <bar-group></bar-group>
             <bar-group>
-                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
-                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
-                <bar icon="'http://placehold.it/28x28'" status="'44%'" ng-click="c()">Battery</bar>
-                <switch-bar icon="'http://placehold.it/28x28'" id="'01'" ng-model="wifi">Wi-Fi</switch-bar>
-                <bar icon="'http://placehold.it/28x28'" status="'On'">Bluetooth</bar>
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
+                <switch-bar icon="'./icons/bluetooth.png'" id="'01'" ng-model="wifi">Wi-Fi</switch-bar>
+                <text-bar icon="'./icons/bluetooth.png'" status="'On'">Bluetooth</text-bar>
             </bar-group>
             <bar-group>
-                <bar icon="'http://placehold.it/28x28'" status="">Music</bar>    
+                <text-bar icon="'./icons/bluetooth.png'" status="">Music</text-bar>    
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
+                <switch-bar icon="'./icons/bluetooth.png'" id="'02'" ng-model="wifi">Wi-Fi</switch-bar>
             </bar-group>
         </section>
         
         <section class="right">
-            
+            <bar-group></bar-group>
+            <bar-table-group>
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">This is the Bar</text-bar>   
+                <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
+                <switch-bar icon="'./icons/bluetooth.png'" id="'03'" ng-model="wifi">Wi-Fi</switch-bar>
+                <link-bar icon="'./icons/bluetooth.png'" href="'https://www.google.com'">Google</link-bar>
+                <link-bar icon="'./icons/bluetooth.png'" href="'#'">Local</link-bar>
+            </bar-table-group>
         </section>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -110,7 +133,15 @@
                 replace:true
             }
         })
-        .directive('bar', function(){
+        .directive('barTableGroup', function(){
+            return {
+                restrict:'AE',
+                template:'<div class="bar-group bar-table-group" ng-transclude></div>',
+                transclude:true,
+                replace:true
+            }
+        })
+        .directive('textBar', function(){
             return {
                 restrict:'AE',
                 template:  '<div class="bar">\
@@ -145,6 +176,31 @@
                     icon:'=',
                     id:'=',
                     ngModel:'='
+                },
+                transclude:true,
+                replace:true
+            }
+        })
+        .directive('linkBar', function(){
+            return {
+                restrict:'AE',
+                template:  '<div class="bar">\
+                                <div class="bar-icon" ng-if="icon">\
+                                    <img ng-src="{{icon}}" alt="Icon">\
+                                </div>\
+                                <div class="bar-content" ng-transclude></div>\
+                                <div class="bar-status" ng-if="href">\
+                                    <a class="arrow-right"></a>\
+                                </div>\
+                            </div><!-- bar -->',
+                scope:{
+                    icon:'=',
+                    href:'='
+                },
+                link:function(scope, elem, attr){
+                  elem.bind('click', function(){
+                      location.href = scope.href;
+                  })  
                 },
                 transclude:true,
                 replace:true
