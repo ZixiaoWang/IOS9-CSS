@@ -7,16 +7,30 @@
         <style>
             @font-face{ font-family: 'SSF'; src:url("./fonts/SSFthin.ttf"); }
             body{margin: 0px; background-color: rgb(245,245,245); font-family: SSF; font-weight: 700;}
+            section{box-sizing: border-box; padding-top: 44px;}
             .left{ width: 39%; float: left; border-right: 1px solid #BBB; box-sizing: border-box; height: 100vh;} 
             .right { width: 61%; float: left; height: 100vh;}
             
-            .bar-group{width: 100%; margin-bottom: 35px; background-color: white; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;}
+            .bar-group{width: 100%; margin-top: 35px; background-color: white; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;}
             .bar-table-group{width:initial; margin: 0px 20px 35px 20px; border: 1px solid #CCC; border-radius: 5px;}
             .bar-table-group>.bar:first-of-type{border-radius: 10px 10px 0px 0px 10px;}
-            .pre-bar{margin: 0px 20px 0px 35px; line-height: 34px; color: #666;}
-            .after-bar{margin: -35px 20px 35px 35px; line-height: 34px; color: #666;}
-            .bar{width: 100%; min-height: 43px; display: flex; }
-            .bar>.bar-status>a{padding-left: 15px;}
+            .pre-bar{margin: 35px 20px 0px 35px; line-height: 34px; color: #666;}
+            .after-bar{margin: -35px 20px 0px 35px; line-height: 34px; color: #666;}
+            
+            
+            .bar{width: 100%; min-height: 43px; display: flex; position: relative; }
+            .bar>.bar-title{
+                    width: 100%;
+                    height: 44px;
+                    text-align: center;
+                    position: absolute;
+                    top: 0px;
+                    left: 0px;
+                    display: flex;
+                    justify-content:center;
+                    flex-direction: column;
+            }
+            
             .search-bar{ padding: 8px; background-color: #CAC9CF; box-sizing: border-box; margin-bottom: 35px;}
             .searchbox{
                 width: 100%;
@@ -95,12 +109,32 @@
             input[type="checkbox"]:checked.switch+label::before{
                 left: 21px;
             }
+            
+            .nav{
+                width:100%;
+                height: 44px;
+                position: fixed;
+                top: 0px; left: 0px;
+            }
+            .nav-bar{
+                height: 44px;
+                display: inline-block; 
+                background-color: #F9F9F9; 
+                border-bottom: 1px solid #CCC; 
+                float: left;
+                box-sizing: border-box;
+            }
+            .nav>.nav-bar:first-of-type{width: 39%; border-right: 1px solid #CCC;}
+            .nav>.nav-bar:nth-of-type(2){width: 61%;}
+            .bar.nav-bar>a{line-height: 44px; text-decoration: none; color: blue; padding: 0px 8px;}
+            .bar.nav-bar>.left-anchor{ float: left; margin-right: 8px; }
+            .bar.nav-bar>.right-anchor{ float: right; margin-left: 8px; }
+            .bar>.bar-status>a{padding-left: 15px;}
         </style>
     </head>
     <body ng-app="app" ng-controller="myApp">
         
         <section class="left">
-            <search-bar ng-model="text"></search-bar>
             <bar-group>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">Battery</text-bar>
@@ -116,7 +150,6 @@
         </section>
         
         <section class="right">
-            <bar-group></bar-group>
             <div class="pre-bar">Lorem ipsum dolor sit.</div>
             <bar-table-group>
                 <text-bar icon="'./icons/bluetooth.png'" status="'44%'">This is the Bar</text-bar>   
@@ -127,6 +160,15 @@
             </bar-table-group>
             <div class="after-bar">Lorem ipsum dolor sit amet.</div>
         </section>
+        
+        <div class="nav">
+            <div class="bar nav-bar left-nav">
+                <div class="bar-title">Settings</div>
+            </div>
+            <div class="bar nav-bar right-nav">
+                <div class="bar-title">General</div>
+            </div>
+        </div>
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script>
